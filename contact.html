@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>contact us</title>
+
+   <!-- font awesome cdn link  -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+   <!-- Tailwind CSS CDN -->
+   <script src="https://cdn.tailwindcss.com"></script>
+   <script>
+      tailwind.config = {
+         darkMode: 'class',
+         theme: {
+            extend: {
+               colors: {
+                  'main': '#8e44ad',
+                  'red': '#e74c3c',
+                  'orange': '#f39c12',
+                  'light': '#888',
+                  'light-bg': '#eee',
+                  'dark': '#2c3e50',
+                  'white': '#fff',
+               },
+               borderColor: {
+                  DEFAULT: 'rgba(0,0,0,.2)',
+               },
+               fontFamily: {
+                  'nunito': ['Nunito', 'sans-serif'],
+               },
+               fontSize: {
+                  'base': '62.5%', // 1rem = 10px
+               },
+            }
+         }
+      }
+   </script>
+   <!-- Internal styles for things that can’t be easily done with Tailwind -->
+   <style>
+      html {
+         font-size: 62.5%;
+         overflow-x: hidden;
+      }
+      body {
+         font-size: 1.6rem;
+      }
+      *::selection {
+         background-color: #8e44ad;
+         color:#fff;
+      }
+      html::-webkit-scrollbar {
+         width: 1rem;
+         height: .5rem;
+      }
+      html::-webkit-scrollbar-track {
+         background-color: transparent;
+      }
+      html::-webkit-scrollbar-thumb {
+         background-color: #8e44ad;
+      }
+      body.dark {
+         background-color: #333;
+         color: rgba(170,170,170,1);
+      }
+      /* When sidebar is not there, remove left padding */
+      body.active {
+         padding-left: 0 !important;
+      }
+      @media (max-width:1200px) {
+         .side-bar.active {
+            box-shadow: 0 0 0 100vw rgba(0,0,0,.8);
+         }
+      }
+      @media (max-width:768px) {
+         .header .flex .search-form {
+            clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+         }
+         .header .flex .search-form.active {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+         }
+      }
+      
+      /* Added custom transitions for interactive elements */
+      .side-bar {
+         transition: left 0.3s ease;
+         left: -30rem; /* initially hidden off-canvas */
+      }
+      .side-bar.active {
+         left: 0 !important; /* force sidebar to appear on active */
+      }
+      .header .flex .profile {
+         transition: transform 0.3s ease;
+         transform: scale(0);
+      }
+      .header .flex .profile.active {
+         transform: scale(1);
+      }
+      .header .flex .search-form {
+         transition: clip-path 0.3s ease;
+      }
+   </style>
+</head>
+<body class="font-nunito bg-light-bg pl-[30rem] text-[1.6rem] dark:bg-[#333] dark:text-[rgba(170,170,170,1)]">
+   <!-- Header -->
+   <header class="header sticky top-0 left-0 right-0 bg-white dark:bg-dark z-[1000] border-b border-[rgba(0,0,0,.2)] dark:border-[rgba(255,255,255,.2)]">
+      <section class="flex items-center justify-between relative py-[1.5rem] px-[2rem]">
+         <a href="home.html" class="logo text-[2.5rem] text-dark dark:text-white">Educa.</a>
+         <form action="search.html" method="post" class="search-form w-[50rem] rounded-[.5rem] bg-light-bg dark:bg-[#555] p-[1.5rem_2rem] flex gap-[2rem]">
+            <input type="text" name="search_box" required placeholder="search courses..." maxlength="100" class="w-full text-[1.8rem] text-dark dark:text-white bg-transparent">
+            <button type="submit" class="fas fa-search text-[2rem] cursor-pointer text-dark dark:text-white hover:text-main"></button>
+         </form>
+         <div class="icons flex space-x-[0.7rem]">
+            <div id="menu-btn" class="fas fa-bars text-[2rem] text-dark dark:text-white bg-light-bg dark:bg-[#555] rounded-[.5rem] h-[4.5rem] w-[4.5rem] leading-[4.5rem] cursor-pointer text-center hover:bg-dark hover:text-white"></div>
+            <div id="search-btn" class="fas fa-search text-[2rem] text-dark dark:text-white bg-light-bg dark:bg-[#555] rounded-[.5rem] h-[4.5rem] w-[4.5rem] leading-[4.5rem] cursor-pointer text-center md:inline-block hover:bg-dark hover:text-white"></div>
+            <div id="user-btn" class="fas fa-user text-[2rem] text-dark dark:text-white bg-light-bg dark:bg-[#555] rounded-[.5rem] h-[4.5rem] w-[4.5rem] leading-[4.5rem] cursor-pointer text-center hover:bg-dark hover:text-white"></div>
+            <div id="toggle-btn" class="fas fa-sun text-[2rem] text-dark dark:text-white bg-light-bg dark:bg-[#555] rounded-[.5rem] h-[4.5rem] w-[4.5rem] leading-[4.5rem] cursor-pointer text-center hover:bg-dark hover:text-white"></div>
+         </div>
+         <div class="profile hidden md:block absolute top-[120%] right-[2rem] bg-white dark:bg-dark rounded-[.5rem] p-[1.5rem] text-center overflow-hidden origin-top-right scale-0 transition-[.2s_linear] w-[30rem]">
+           <div class="flex justify-center items-center">
+            <img src="images/pic-1.jpg" class="image h-[10rem] w-[10rem] text-center rounded-full object-contain mb-[1rem]" alt="">
+           </div>
+            <h3 class="name text-[2rem] text-dark dark:text-white overflow-hidden text-ellipsis whitespace-nowrap">shaikh anas</h3>
+            <p class="role text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">student</p>
+            <a href="profile.html" class="btn inline-block rounded-[.5rem] bg-main text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center mt-[1rem] hover:bg-dark">view profile</a>
+            <div class="flex-btn flex gap-[1rem] pl-[1rem] mt-[1rem]">
+               <a href="login.html" class="option-btn inline-block rounded-[.5rem] bg-orange text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center hover:bg-dark">Sign-In</a>
+               <a href="register.html" class="option-btn inline-block rounded-[.5rem] bg-orange text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center hover:bg-dark">Sign-Up</a>
+            </div>
+         </div>
+      </section>
+   </header>
+   
+   <!-- Side Bar -->
+   <div class="side-bar active fixed top-0 w-[30rem] bg-white dark:bg-dark h-[100vh] border-r border-[rgba(0,0,0,.2)] dark:border-[rgba(255,255,255,.2)] z-[1200]">
+      <div id="close-btn" class="text-right p-[2rem] hidden">
+         <i class="fas fa-times text-[2.5rem] bg-red rounded-[.5rem] text-white cursor-pointer h-[4.5rem] w-[4.5rem] leading-[4.5rem] text-center hover:bg-dark"></i>
+      </div>
+      <div class="profile p-[3rem_2rem] text-center">
+        <div class="flex justify-center items-center">
+         <img src="images/pic-1.jpg" class="image h-[10rem] w-[10rem]  rounded-[50%] object-contain mb-[1rem]" alt="">
+        </div>
+         <h3 class="name text-[2rem] text-dark dark:text-white overflow-hidden text-ellipsis whitespace-nowrap">shaikh anas</h3>
+         <p class="role text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">student</p>
+         <a href="profile.html" class="btn inline-block rounded-[.5rem] text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center mt-[1rem] bg-main hover:bg-dark hover:text-white">view profile</a>
+      </div>
+      <nav class="navbar">
+         <a href="home.html" class="block p-[2rem] text-[2rem] hover:bg-light-bg dark:hover:bg-[#444]">
+            <i class="fas fa-home mr-[1.5rem] text-main transition-[.2s_linear]"></i>
+            <span class="text-light dark:text-[rgba(220,220,220,1)]">home</span>
+         </a>
+         <a href="about.html" class="block p-[2rem] text-[2rem] hover:bg-light-bg dark:hover:bg-[#444]"><i class="fas fa-question mr-[1.5rem] text-main transition-[.2s_linear]"></i><span class="text-light dark:text-[rgba(220,220,220,1)]">about</span></a>
+         <a href="courses.html" class="block p-[2rem] text-[2rem] hover:bg-light-bg dark:hover:bg-[#444]"><i class="fas fa-graduation-cap mr-[1.5rem] text-main transition-[.2s_linear]"></i><span class="text-light dark:text-[rgba(220,220,220,1)]">courses</span></a>
+         <a href="teachers.html" class="block p-[2rem] text-[2rem] hover:bg-light-bg dark:hover:bg-[#444]"><i class="fas fa-chalkboard-user mr-[1.5rem] text-main transition-[.2s_linear]"></i><span class="text-light dark:text-[rgba(220,220,220,1)]">teachers</span></a>
+         <a href="contact.html" class="block p-[2rem] text-[2rem] hover:bg-light-bg dark:hover:bg-[#444]"><i class="fas fa-headset mr-[1.5rem] text-main transition-[.2s_linear]"></i><span class="text-light dark:text-[rgba(220,220,220,1)]">contact us</span></a>
+      </nav>
+   </div>   
+   
+   <!-- Contact Section -->
+   <section class="contact p-[2rem] max-w-[1200px] mx-auto">
+      <div class="row flex flex-wrap items-center gap-[1.5rem]">
+         <div class="image flex-1 min-w-[40rem]">
+            <img src="images/contact-img.svg" class="w-full" alt="">
+         </div>
+         <form action="" method="post" class="flex-1 min-w-[30rem] bg-white dark:bg-dark p-[2rem] rounded-[.5rem]">
+            <h3 class="text-[2.5rem] text-dark dark:text-white mb-[1rem]">get in touch</h3>
+            <input type="text" placeholder="enter your name" name="name" required maxlength="50" class="box w-full p-[1rem] rounded-[.5rem] my-[1rem] border border-[rgba(0,0,0,.2)]">
+            <input type="email" placeholder="enter your email" name="email" required maxlength="50" class="box w-full p-[1rem] rounded-[.5rem] my-[1rem] border border-[rgba(0,0,0,.2)]">
+            <input type="number" placeholder="enter your number" name="number" required maxlength="50" class="box w-full p-[1rem] rounded-[.5rem] my-[1rem] border border-[rgba(0,0,0,.2)]">
+            <textarea name="msg" class="box w-full p-[1rem] rounded-[.5rem] my-[1rem] border border-[rgba(0,0,0,.2)]" placeholder="enter your message" required maxlength="1000" cols="30" rows="10"></textarea>
+            <input type="submit" value="send message" class="inline-btn inline-block rounded-[.5rem] bg-main text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center mt-[1rem] hover:bg-dark" name="submit">
+         </form>
+      </div>
+      <div class="box-container grid grid-cols-[repeat(auto-fit,minmax(30rem,1fr))] gap-[1.5rem] justify-center items-start mt-[3rem]">
+         <div class="box rounded-[.5rem] bg-white dark:bg-dark p-[2rem] text-center">
+            <i class="fas fa-phone text-[3rem] text-main mb-[1rem]"></i>
+            <h3 class="text-[2rem] text-dark dark:text-white mb-[1rem]">phone number</h3>
+            <a href="tel:1234567890" class="block text-[1.8rem] text-light dark:text-[rgba(220,220,220,1)]">123-456-7890</a>
+            <a href="tel:1112223333" class="block text-[1.8rem] text-light dark:text-[rgba(220,220,220,1)]">111-222-3333</a>
+         </div>
+         <div class="box rounded-[.5rem] bg-white dark:bg-dark p-[2rem] text-center">
+            <i class="fas fa-envelope text-[3rem] text-main mb-[1rem]"></i>
+            <h3 class="text-[2rem] text-dark dark:text-white mb-[1rem]">email address</h3>
+            <a href="mailto:shaikhanas@gmail.com" class="block text-[1.8rem] text-light dark:text-[rgba(220,220,220,1)]">shaikhanas@gmail.com</a>
+            <a href="mailto:anasbhai@gmail.com" class="block text-[1.8rem] text-light dark:text-[rgba(220,220,220,1)]">anasbhai@gmail.com</a>
+         </div>
+         <div class="box rounded-[.5rem] bg-white dark:bg-dark p-[2rem] text-center">
+            <i class="fas fa-map-marker-alt text-[3rem] text-main mb-[1rem]"></i>
+            <h3 class="text-[2rem] text-dark dark:text-white mb-[1rem]">office address</h3>
+            <a href="#" class="block text-[1.8rem] text-light dark:text-[rgba(220,220,220,1)]">flat no. 1, a-1 building, jogeshwari, mumbai, india - 400104</a>
+         </div>
+      </div>
+   </section>
+   
+   <!-- Footer -->
+   <footer class="footer sticky bottom-0 left-0 right-0 text-center text-[2rem] py-[2.5rem] px-[2rem] text-dark dark:text-white bg-white dark:bg-dark border-t border-[rgba(0,0,0,.2)] dark:border-[rgba(255,255,255,.2)] z-[1000] mt-[1rem]">
+      &copy; copyright @ 2022 by <span class="text-main">mr. web designer</span> | all rights reserved!
+   </footer>
+   
+   <!-- custom js file link  -->
+   <script src="js/script.js"></script>
+</body>
+</html>
