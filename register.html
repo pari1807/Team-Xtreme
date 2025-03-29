@@ -8,111 +8,242 @@
 
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
-
-   <!-- custom css file link  -->
-   <link rel="stylesheet" href="css/style.css">
-
+   <script src="https://cdn.tailwindcss.com"></script>
+   <script>
+      tailwind.config = {
+         darkMode: 'class',
+         theme: {
+            extend: {
+               colors: {
+                  'main': '#8e44ad',
+                  'red': '#e74c3c',
+                  'orange': '#f39c12',
+                  'light': '#888',
+                  'light-bg': '#eee',
+                  'dark': '#2c3e50',
+                  'white': '#fff'
+               },
+               borderColor: {
+                  DEFAULT: 'rgba(0,0,0,.2)'
+               },
+               fontFamily: {
+                  'nunito': ['Nunito', 'sans-serif']
+               },
+               fontSize: {
+                  'base': '62.5%'
+               },
+               animation: {
+                  'fade-in': 'fadeIn 0.5s ease-out'
+               },
+               keyframes: {
+                  fadeIn: {
+                     '0%': { opacity: '0' },
+                     '100%': { opacity: '1' }
+                  }
+               }
+            }
+         }
+      }
+   </script>
+   <!-- Internal styles for things that can't be easily done with Tailwind -->
+   <style>
+      html {
+         font-size: 62.5%;
+         overflow-x: hidden;
+      }
+      
+      body {
+         font-size: 1.6rem;
+      }
+      
+      *::selection {
+         background-color: #8e44ad;
+         color:#fff;
+      }
+      
+      html::-webkit-scrollbar {
+         width: 1rem;
+         height: .5rem;
+      }
+      
+      html::-webkit-scrollbar-track {
+         background-color: transparent;
+      }
+      
+      html::-webkit-scrollbar-thumb {
+         background-color: #8e44ad;
+      }
+      
+      body.dark {
+         --tw-bg-opacity: 1;
+         background-color: rgba(51, 51, 51, var(--tw-bg-opacity));
+         --tw-text-opacity: 1;
+         color: rgba(170, 170, 170, var(--tw-text-opacity));
+      }
+      
+      .side-bar .navbar a:hover i {
+         margin-right: 2.5rem;
+      }
+      
+      .comments .box-container .box .comment-box::before {
+         content: '';
+         position: absolute;
+         top: -1rem; left: 1.5rem;
+         background-color: #eee;
+         height: 1.2rem;
+         width: 2rem;
+         clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      }
+      
+      @media (max-width:1200px) {
+         .side-bar.active {
+            box-shadow: 0 0 0 100vw rgba(0,0,0,.8);
+         }
+      }
+      
+      @media (max-width:768px) {
+         .header .flex .search-form {
+            clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+         }
+      
+         .header .flex .search-form.active {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+         }
+      }
+      
+      @media (max-width:450px) {
+         .about .row .image img {
+            height: 25rem;
+         }
+      }
+      
+      /* Sidebar styles (added) */
+      .side-bar {
+         position: fixed;
+         top: 0;
+         left: -30rem; /* initially hidden off-canvas */
+         width: 30rem;
+         background-color: var(--white);
+         height: 100vh;
+         border-right: var(--border);
+         z-index: 1200;
+         transition: left 0.3s ease;
+      }
+      .side-bar.active {
+         left: 0 !important;
+      }
+      /* Override for sidebar active state */
+      .side-bar.active {
+         left: -30rem !important;
+      }
+      /* When sidebar is toggled off, remove left padding so content occupies full width */
+      body.active {
+         padding-left: 0 !important;
+      }
+      
+      /* User profile popup styles added */
+      .header .flex .profile {
+         transition: transform 0.3s ease;
+         transform: scale(0);
+      }
+      .header .flex .profile.active {
+         transform: scale(1);
+      }
+   </style>
 </head>
-<body>
-
-<header class="header">
-   
-   <section class="flex">
-
-      <a href="home.html" class="logo">Educa.</a>
-
-      <form action="search.html" method="post" class="search-form">
-         <input type="text" name="search_box" required placeholder="search courses..." maxlength="100">
-         <button type="submit" class="fas fa-search"></button>
-      </form>
-
-      <div class="icons">
-         <div id="menu-btn" class="fas fa-bars"></div>
-         <div id="search-btn" class="fas fa-search"></div>
-         <div id="user-btn" class="fas fa-user"></div>
-         <div id="toggle-btn" class="fas fa-sun"></div>
-      </div>
-
-      <div class="profile">
-         <img src="images/pic-1.jpg" class="image" alt="">
-         <h3 class="name">shaikh anas</h3>
-         <p class="role">studen</p>
-         <a href="profile.html" class="btn">view profile</a>
-         <div class="flex-btn">
-            <a href="login.html" class="option-btn">login</a>
-            <a href="register.html" class="option-btn">register</a>
+<body class="font-nunito dark:bg-dark pl-[30rem] text-[1.6rem] dark:bg-[#333] dark:text-[rgba(170,170,170,1)]">
+   <!-- Updated Header with gradient and enhanced transitions -->
+   <header class="header sticky top-0 left-0 right-0 bg-gradient-to-r from-white to-gray-50 dark:from-dark dark:to-gray-800 z-[1000] border-b border-[rgba(0,0,0,.2)] dark:border-[rgba(255,255,255,.2)] shadow-md transition-all duration-300">
+      <section class="flex items-center justify-between relative py-[1.5rem] px-[2rem]">
+         <a href="home.html" class="logo text-[2.5rem] text-dark dark:text-white hover:scale-105 transition-transform duration-200">Educa.</a>
+         <form action="search.html" method="post" class="search-form w-[50rem] rounded-[.5rem] bg-light-bg dark:bg-[#555] p-[1.5rem_2rem] flex gap-[2rem]">
+            <input type="text" name="search_box" required placeholder="search courses..." maxlength="100" class="w-full text-[1.8rem] text-dark dark:text-white bg-transparent focus:ring-2 focus:ring-main transition-all duration-200">
+            <button type="submit" class="fas fa-search text-[2rem] cursor-pointer text-dark dark:text-white hover:text-main transform hover:scale-105 transition-transform duration-200"></button>
+         </form>
+         <div class="icons flex space-x-[0.7rem]">
+            <div id="menu-btn" class="fas fa-bars text-[2rem] text-dark dark:text-white bg-light-bg dark:bg-[#555] rounded-[.5rem] h-[4.5rem] w-[4.5rem] leading-[4.5rem] cursor-pointer text-center hover:bg-dark hover:text-white transform hover:scale-105 transition-transform duration-200"></div>
+            <div id="search-btn" class="fas fa-search text-[2rem] text-dark dark:text-white bg-light-bg dark:bg-[#555] rounded-[.5rem] h-[4.5rem] w-[4.5rem] leading-[4.5rem] cursor-pointer text-center md:inline-block hover:bg-dark hover:text-white transform hover:scale-105 transition-transform duration-200"></div>
+            <div id="user-btn" class="fas fa-user text-[2rem] text-dark dark:text-white bg-light-bg dark:bg-[#555] rounded-[.5rem] h-[4.5rem] w-[4.5rem] leading-[4.5rem] cursor-pointer text-center hover:bg-dark hover:text-white transform hover:scale-105 transition-transform duration-200"></div>
+            <div id="toggle-btn" class="fas fa-sun text-[2rem] text-dark dark:text-white bg-light-bg dark:bg-[#555] rounded-[.5rem] h-[4.5rem] w-[4.5rem] leading-[4.5rem] cursor-pointer text-center hover:bg-dark hover:text-white transform hover:scale-105 transition-transform duration-200"></div>
          </div>
+         <div class="profile absolute top-[120%] right-[2rem] bg-white dark:bg-dark rounded-[.5rem] p-[1.5rem] text-center overflow-hidden origin-top-right scale-0 transition-transform duration-200 w-[30rem]">
+            <img src="images/pic-1.jpg" class="image h-[10rem] w-[10rem] rounded-full object-contain mb-[1rem]" alt="">
+            <h3 class="name text-[2rem] text-dark dark:text-white overflow-hidden text-ellipsis whitespace-nowrap">shaikh anas</h3>
+            <p class="role text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">student</p>
+            <a href="profile.html" class="btn inline-block rounded-[.5rem] bg-main text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center mt-[1rem] hover:bg-dark transition-colors duration-200">view profile</a>
+            <div class="flex-btn flex gap-[1rem] mt-[1rem]">
+               <a href="login.html" class="option-btn inline-block rounded-[.5rem] bg-orange text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center hover:bg-dark transition-colors duration-200">login</a>
+               <a href="register.html" class="option-btn inline-block rounded-[.5rem] bg-orange text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center hover:bg-dark transition-colors duration-200">register</a>
+            </div>
+         </div>
+      </section>
+   </header>
+   <!-- Updated Sidebar -->
+   <div class="side-bar fixed top-0 left-0 w-[30rem] bg-white dark:bg-dark h-[100vh] border-r border-[rgba(0,0,0,.2)] dark:border-[rgba(255,255,255,.2)] z-[1200]">
+      <div id="close-btn" class="text-right p-[2rem] hidden">
+         <i class="fas fa-times text-[2.5rem] bg-red rounded-[.5rem] text-white cursor-pointer h-[4.5rem] w-[4.5rem] leading-[4.5rem] text-center hover:bg-dark transition-colors duration-200"></i>
       </div>
-
+      <div class="profile p-[3rem_2rem] text-center">
+         <img src="images/pic-1.jpg" class="image h-[10rem] w-[10rem] rounded-full object-contain mb-[1rem]" alt="">
+         <h3 class="name text-[2rem] text-dark dark:text-white overflow-hidden text-ellipsis whitespace-nowrap">shaikh anas</h3>
+         <p class="role text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">student</p>
+         <a href="profile.html" class="btn inline-block rounded-[.5rem] bg-main text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center mt-[1rem] hover:bg-dark transition-colors duration-200">view profile</a>
+      </div>
+      <nav class="navbar">
+         <a href="home.html" class="block p-[2rem] text-[2rem] hover:bg-light-bg dark:hover:bg-[#444] transition-colors duration-200">
+            <i class="fas fa-home mr-[1.5rem] text-main transition-all duration-200"></i>
+            <span class="text-light dark:text-[rgba(220,220,220,1)]">home</span>
+         </a>
+         <a href="about.html" class="block p-[2rem] text-[2rem] hover:bg-light-bg dark:hover:bg-[#444] transition-colors duration-200">
+            <i class="fas fa-question mr-[1.5rem] text-main transition-all duration-200"></i>
+            <span class="text-light dark:text-[rgba(220,220,220,1)]">about</span>
+         </a>
+         <a href="courses.html" class="block p-[2rem] text-[2rem] hover:bg-light-bg dark:hover:bg-[#444] transition-colors duration-200">
+            <i class="fas fa-graduation-cap mr-[1.5rem] text-main transition-all duration-200"></i>
+            <span class="text-light dark:text-[rgba(220,220,220,1)]">courses</span>
+         </a>
+         <a href="teachers.html" class="block p-[2rem] text-[2rem] hover:bg-light-bg dark:hover:bg-[#444] transition-colors duration-200">
+            <i class="fas fa-chalkboard-user mr-[1.5rem] text-main transition-all duration-200"></i>
+            <span class="text-light dark:text-[rgba(220,220,220,1)]">teachers</span>
+         </a>
+         <a href="contact.html" class="block p-[2rem] text-[2rem] hover:bg-light-bg dark:hover:bg-[#444] transition-colors duration-200">
+            <i class="fas fa-headset mr-[1.5rem] text-main transition-all duration-200"></i>
+            <span class="text-light dark:text-[rgba(220,220,220,1)]">contact us</span>
+         </a>
+      </nav>
+   </div>
+   <!-- Modified Registration Form Container (asterisk update) -->
+   <section class="form-container p-[2rem] max-w-[50rem] mx-auto my-[8rem] bg-white dark:bg-gray-800 text-black dark:text-white border border-[rgba(0,0,0,.2)] dark:border-[rgba(255,255,255,.2)] rounded-[.5rem] shadow-lg animate-fade-in">
+      <form action="" method="post" enctype="multipart/form-data" class="space-y-[1.5rem]">
+         <h3 class="text-[2rem] font-semibold text-center">register now</h3>
+         <p class="text-[1.8rem]">
+            your name <span class="text-orange-500" style="color:#f39c12!important;">*</span>
+         </p>
+         <input type="text" name="name" placeholder="enter your name" required maxlength="50" class="w-full p-[1.4rem] bg-white dark:bg-gray-800 text-black dark:text-white border border-[rgba(0,0,0,.2)] dark:border-[rgba(255,255,255,.2)] rounded-[.5rem] focus:border-orange-500 focus:ring-2 focus:ring-orange-500 transition-all duration-200">
+         <p class="text-[1.8rem]">
+            your email <span class="text-orange-500" style="color:#f39c12!important;">*</span>
+         </p>
+         <input type="email" name="email" placeholder="enter your email" required maxlength="50" class="w-full p-[1.4rem] bg-white dark:bg-gray-800 text-black dark:text-white border border-[rgba(0,0,0,.2)] dark:border-[rgba(255,255,255,.2)] rounded-[.5rem] focus:border-orange-500 focus:ring-2 focus:ring-orange-500 transition-all duration-200">
+         <p class="text-[1.8rem]">
+            your password <span class="text-orange-500" style="color:#f39c12!important;">*</span>
+         </p>
+         <input type="password" name="pass" placeholder="enter your password" required maxlength="20" class="w-full p-[1.4rem] bg-white dark:bg-gray-800 text-black dark:text-white border border-[rgba(0,0,0,.2)] dark:border-[rgba(255,255,255,.2)] rounded-[.5rem] focus:border-orange-500 focus:ring-2 focus:ring-orange-500 transition-all duration-200">
+         <p class="text-[1.8rem]">
+            confirm password <span class="text-orange-500" style="color:#f39c12!important;">*</span>
+         </p>
+         <input type="password" name="c_pass" placeholder="confirm your password" required maxlength="20" class="w-full p-[1.4rem] bg-white dark:bg-gray-800 text-black dark:text-white border border-[rgba(0,0,0,.2)] dark:border-[rgba(255,255,255,.2)] rounded-[.5rem] focus:border-orange-500 focus:ring-2 focus:ring-orange-500 transition-all duration-200">
+         <p class="text-[1.8rem]">
+            select profile <span class="text-orange-500" style="color:#f39c12!important;">*</span>
+         </p>
+         <input type="file" accept="image/*" required class="w-full p-[1.4rem] bg-white dark:bg-gray-800 text-black dark:text-white border border-[rgba(0,0,0,.2)] dark:border-[rgba(255,255,255,.2)] rounded-[.5rem] transition-all duration-200">
+         <input type="submit" value="register new" name="submit" class="w-full py-[1.5rem] bg-blue-500 text-white rounded-[.5rem] hover:bg-blue-600 transition-all duration-200 text-[1.8rem]">
+      </form>
    </section>
-
-</header>   
-
-<div class="side-bar">
-
-   <div id="close-btn">
-      <i class="fas fa-times"></i>
-   </div>
-
-   <div class="profile">
-      <img src="images/pic-1.jpg" class="image" alt="">
-      <h3 class="name">shaikh anas</h3>
-      <p class="role">studen</p>
-      <a href="profile.html" class="btn">view profile</a>
-   </div>
-
-   <nav class="navbar">
-      <a href="home.html"><i class="fas fa-home"></i><span>home</span></a>
-      <a href="about.html"><i class="fas fa-question"></i><span>about</span></a>
-      <a href="courses.html"><i class="fas fa-graduation-cap"></i><span>courses</span></a>
-      <a href="teachers.html"><i class="fas fa-chalkboard-user"></i><span>teachers</span></a>
-      <a href="contact.html"><i class="fas fa-headset"></i><span>contact us</span></a>
-   </nav>
-
-</div>
-
-<section class="form-container">
-
-   <form action="" method="post" enctype="multipart/form-data">
-      <h3>register now</h3>
-      <p>your name <span>*</span></p>
-      <input type="text" name="name" placeholder="enter your name" required maxlength="50" class="box">
-      <p>your email <span>*</span></p>
-      <input type="email" name="email" placeholder="enter your email" required maxlength="50" class="box">
-      <p>your password <span>*</span></p>
-      <input type="password" name="pass" placeholder="enter your password" required maxlength="20" class="box">
-      <p>confirm password <span>*</span></p>
-      <input type="password" name="c_pass" placeholder="confirm your password" required maxlength="20" class="box">
-      <p>select profile <span>*</span></p>
-      <input type="file" accept="image/*" required class="box">
-      <input type="submit" value="register new" name="submit" class="btn">
-   </form>
-
-</section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<footer class="footer">
-
-   &copy; copyright @ 2022 by <span>mr. web designer</span> | all rights reserved!
-
-</footer>
-
-<!-- custom js file link  -->
-<script src="js/script.js"></script>
-
-   
+   <!-- Enhanced Footer -->
+   <footer class="footer sticky bottom-0 left-0 right-0 text-center text-[2rem] py-[2.5rem] px-[2rem] text-dark dark:text-white bg-white dark:bg-dark border-t border-[rgba(0,0,0,.2)] dark:border-[rgba(255,255,255,.2)] z-[1000] mt-[1rem]">
+      &copy; copyright @ 2022 by <span class="text-main">mr. web designer</span> | all rights reserved!
+   </footer>
+   <!-- custom js file link  -->
+   <script src="js/script.js"></script>
 </body>
 </html>
