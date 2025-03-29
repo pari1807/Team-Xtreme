@@ -1,151 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>profile</title>
-
-   <!-- font awesome cdn link  -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
-
-   <!-- custom css file link  -->
-   <link rel="stylesheet" href="css/style.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <!-- font awesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <!-- Tailwind CDN and configuration -->
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+       tailwind.config = {
+         darkMode: 'class',
+         theme: {
+           extend: {
+             colors: {
+               main: '#8e44ad',
+               red: '#e74c3c',
+               orange: '#f39c12',
+               dark: '#2c3e50',
+               'light-bg': '#eee',
+               white: '#fff'
+             },
+           }
+         }
+       }
+    </script>
+    <!-- Additional custom styles -->
+    <style>
+      /* Adjusted styles for improved layout */
+      html {
+         font-size: 62.5%;
+         overflow-x: hidden;
+      }
+      body { font-size: 1.6rem; }
+      *::selection { background-color: #8e44ad; color:#fff; }
+      html::-webkit-scrollbar { width: 1rem; height: .5rem; }
+      html::-webkit-scrollbar-track { background-color: transparent; }
+      html::-webkit-scrollbar-thumb { background-color: #8e44ad; }
+      body.dark {
+         --tw-bg-opacity: 1;
+         background-color: rgba(51,51,51,var(--tw-bg-opacity));
+         --tw-text-opacity: 1;
+         color: rgba(170,170,170,var(--tw-text-opacity));
+      }
+      .side-bar .navbar a:hover i { margin-right: 2.5rem; }
+      .comments .box-container .box .comment-box::before {
+         content: '';
+         position: absolute;
+         top: -1rem; left: 1.5rem;
+         background-color: #eee;
+         height: 1.2rem;
+         width: 2rem;
+         clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      }
+      @media (max-width:1200px) {
+         .side-bar.active { box-shadow: 0 0 0 100vw rgba(0,0,0,.8); }
+      }
+      @media (max-width:768px) {
+         .header .flex .search-form {
+            clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+         }
+         .header .flex .search-form.active {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+         }
+      }
+      @media (max-width:450px) {
+         .about .row .image img { height: 25rem; }
+      }
+      .side-bar {
+         position: fixed;
+         top: 0;
+         left: 0; /* visible by default */
+         width: 30rem; /* updated width to match design */
+         background-color: var(--white);
+         height: 100vh;
+         border-right: var(--border);
+         z-index: 1200;
+         transition: left 0.5s ease-in-out; /* updated transition for smoothness */
+      }
+      .side-bar.active { left: -30rem !important; } /* use same unit as width */
+      /* Removed margin-left rules for header and main content that were causing a zoomed-out appearance */
+    </style>
 </head>
-<body>
-
-<header class="header">
-   
-   <section class="flex">
-
-      <a href="home.html" class="logo">Educa.</a>
-
-      <form action="search.html" method="post" class="search-form">
-         <input type="text" name="search_box" required placeholder="search courses..." maxlength="100">
-         <button type="submit" class="fas fa-search"></button>
-      </form>
-
-      <div class="icons">
-         <div id="menu-btn" class="fas fa-bars"></div>
-         <div id="search-btn" class="fas fa-search"></div>
-         <div id="user-btn" class="fas fa-user"></div>
-         <div id="toggle-btn" class="fas fa-sun"></div>
-      </div>
-
-      <div class="profile">
-         <img src="images/pic-1.jpg" class="image" alt="">
-         <h3 class="name">shaikh anas</h3>
-         <p class="role">studen</p>
-         <a href="profile.html" class="btn">view profile</a>
-         <div class="flex-btn">
-            <a href="login.html" class="option-btn">login</a>
-            <a href="register.html" class="option-btn">register</a>
-         </div>
-      </div>
-
-   </section>
-
-</header>   
-
-<div class="side-bar">
-
-   <div id="close-btn">
-      <i class="fas fa-times"></i>
-   </div>
-
-   <div class="profile">
-      <img src="images/pic-1.jpg" class="image" alt="">
-      <h3 class="name">shaikh anas</h3>
-      <p class="role">studen</p>
-      <a href="profile.html" class="btn">view profile</a>
-   </div>
-
-   <nav class="navbar">
-      <a href="home.html"><i class="fas fa-home"></i><span>home</span></a>
-      <a href="about.html"><i class="fas fa-question"></i><span>about</span></a>
-      <a href="courses.html"><i class="fas fa-graduation-cap"></i><span>courses</span></a>
-      <a href="teachers.html"><i class="fas fa-chalkboard-user"></i><span>teachers</span></a>
-      <a href="contact.html"><i class="fas fa-headset"></i><span>contact us</span></a>
-   </nav>
-
-</div>
-
-<section class="user-profile">
-
-   <h1 class="heading">your profile</h1>
-
-   <div class="info">
-
-      <div class="user">
-         <img src="images/pic-1.jpg" alt="">
-         <h3>shaikh anas</h3>
-         <p>student</p>
-         <a href="update.html" class="inline-btn">update profile</a>
-      </div>
-   
-      <div class="box-container">
-   
-         <div class="box">
-            <div class="flex">
-               <i class="fas fa-bookmark"></i>
-               <div>
-                  <span>4</span>
-                  <p>saved playlist</p>
-               </div>
-            </div>
-            <a href="#" class="inline-btn">view playlists</a>
-         </div>
-   
-         <div class="box">
-            <div class="flex">
-               <i class="fas fa-heart"></i>
-               <div>
-                  <span>33</span>
-                  <p>videos liked</p>
-               </div>
-            </div>
-            <a href="#" class="inline-btn">view liked</a>
-         </div>
-   
-         <div class="box">
-            <div class="flex">
-               <i class="fas fa-comment"></i>
-               <div>
-                  <span>12</span>
-                  <p>videos comments</p>
-               </div>
-            </div>
-            <a href="#" class="inline-btn">view comments</a>
-         </div>
-   
-      </div>
-   </div>
-
-</section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<footer class="footer">
-
-   &copy; copyright @ 2022 by <span>mr. web designer</span> | all rights reserved!
-
-</footer>
-
-<!-- custom js file link  -->
-<script src="js/script.js"></script>
-
-   
+<!-- Added min-h-screen so the dark background fills the viewport -->
+<body class="font-nunito bg-light-bg dark:bg-dark dark:text-white min-h-screen">
+    <!-- Updated Header with removed left margin -->
+    <header class="header sticky top-0 right-0 bg-white dark:bg-dark z-[1000] border-b border-[rgba(0,0,0,.2)] dark:border-[rgba(255,255,255,.2)]">
+        <section class="flex items-center justify-between relative py-[1.5rem] px-[2rem]">
+           <a href="home.html" class="logo text-[2.5rem] text-dark dark:text-white">Educa.</a>
+           <form action="search.html" method="post" class="search-form hidden md:flex items-center gap-[2rem] w-[50rem] rounded-[.5rem] bg-light-bg dark:bg-[#555] p-[1.5rem_2rem]">
+              <input type="text" name="search_box" required placeholder="search courses..." maxlength="100" class="w-full text-[1.8rem] text-dark dark:text-white bg-transparent">
+              <button type="submit" class="text-[2rem] text-dark dark:text-white hover:text-main"><i class="fas fa-search"></i></button>
+           </form>
+           <div class="icons flex space-x-[0.7rem]">
+              <button id="menu-btn" class="fas fa-bars text-[2rem] text-dark dark:text-white bg-light-bg dark:bg-[#555] rounded-[.5rem] h-[4.5rem] w-[4.5rem] leading-[4.5rem] cursor-pointer text-center hover:bg-dark hover:text-white"></button>
+              <button id="toggle-btn" class="fas fa-sun text-[2rem] text-dark dark:text-white bg-light-bg dark:bg-[#555] rounded-[.5rem] h-[4.5rem] w-[4.5rem] leading-[4.5rem] cursor-pointer text-center hover:bg-dark hover:text-white"></button>
+           </div>
+           <div class="profile absolute top-[120%] right-[2rem] bg-white dark:bg-dark rounded-[.5rem] p-[1.5rem] text-center overflow-hidden origin-top-right scale-0 transition-[.2s_linear] w-[30rem]">
+               <img src="images/pic-1.jpg" class="image h-[10rem] w-[10rem] rounded-full object-contain mb-[1rem]" alt="">
+               <h3 class="name text-[2rem] text-dark dark:text-white overflow-hidden text-ellipsis whitespace-nowrap">shaikh anas</h3>
+               <p class="role text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">student</p>
+               <a href="profile.html" class="btn inline-block rounded-[.5rem] bg-main text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] mt-[1rem] hover:bg-dark">view profile</a>
+           </div>
+        </section>
+    </header>
+    
+    <!-- Updated Sidebar: Removed 'left-0' from the sidebar container -->
+    <div class="side-bar fixed top-0 bg-white dark:bg-dark dark:text-white border-r border-[rgba(0,0,0,.2)] dark:border-[rgba(255,255,255,.2)] z-[1200] transition-all duration-300 ease-in-out">
+        <div id="close-btn" class="text-right p-[2rem] md:hidden">
+          <button class="bg-red-500 text-white text-[2.5rem] rounded-[.5rem] h-[4.5rem] w-[4.5rem] leading-[4.5rem] hover:bg-dark"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="profile p-[3rem_2rem] text-center">
+           <img src="images/pic-1.jpg" class="h-[10rem] w-[10rem] rounded-full object-contain mb-[1rem]" alt="">
+           <h3 class="name text-[2rem] text-dark dark:text-white">shaikh anas</h3>
+           <p class="role text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">student</p>
+           <a href="profile.html" class="btn inline-block rounded-[.5rem] bg-main text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] mt-[1rem] hover:bg-dark">view profile</a>
+        </div>
+        <nav class="navbar">
+          <a href="home.html" class="block p-[2rem] text-[2rem] hover:bg-light-bg dark:hover:bg-[#444]">
+             <i class="fas fa-home mr-[1.5rem] text-main"></i>
+             <span class="text-light dark:text-[rgba(220,220,220,1)]">home</span>
+          </a>
+          <a href="about.html" class="block p-[2rem] text-[2rem] hover:bg-light-bg dark:hover:bg-[#444]">
+             <i class="fas fa-question mr-[1.5rem] text-main"></i>
+             <span class="text-light dark:text-[rgba(220,220,220,1)]">about</span>
+          </a>
+          <a href="courses.html" class="block p-[2rem] text-[2rem] hover:bg-light-bg dark:hover:bg-[#444]">
+             <i class="fas fa-graduation-cap mr-[1.5rem] text-main"></i>
+             <span class="text-light dark:text-[rgba(220,220,220,1)]">courses</span>
+          </a>
+          <a href="teachers.html" class="block p-[2rem] text-[2rem] hover:bg-light-bg dark:hover:bg-[#444]">
+             <i class="fas fa-chalkboard-user mr-[1.5rem] text-main"></i>
+             <span class="text-light dark:text-[rgba(220,220,220,1)]">teachers</span>
+          </a>
+          <a href="contact.html" class="block p-[2rem] text-[2rem] hover:bg-light-bg dark:hover:bg-[#444]">
+             <i class="fas fa-headset mr-[1.5rem] text-main"></i>
+             <span class="text-light dark:text-[rgba(220,220,220,1)]">contact us</span>
+          </a>
+        </nav>
+    </div>
+    
+    <!-- Updated Main Content with added bottom padding -->
+    <div class="content bg-light-bg dark:bg-dark dark:text-white pb-[10rem]">
+        <main class="p-[2rem] max-w-[1200px] mx-auto">
+          <section class="bg-white dark:bg-dark p-[2rem] rounded-[.5rem] shadow">
+             <div class="flex flex-col items-center">
+                <img src="images/pic-1.jpg" alt="Profile Image" class="h-[10rem] w-[10rem] rounded-full object-cover mb-[1rem]">
+                <h3 class="text-[2rem] font-bold text-dark dark:text-white">shaikh anas</h3>
+                <p class="text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">student</p>
+                <a href="update.html" class="mt-[1rem] inline-block rounded-[.5rem] bg-main text-white text-[1.8rem] py-[1rem] px-[3rem] hover:bg-dark">update profile</a>
+             </div>
+             <div class="mt-[2rem] grid grid-cols-1 md:grid-cols-3 gap-[1.5rem]">
+                <div class="bg-gray-100 dark:bg-[#555] p-[2rem] rounded-[.5rem] shadow">
+                   <div class="flex items-center space-x-[1.5rem]">
+                      <i class="fas fa-bookmark text-main text-[2.5rem]"></i>
+                      <div>
+                         <span class="text-[2rem] font-bold text-dark dark:text-white">4</span>
+                         <p class="text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">saved playlist</p>
+                      </div>
+                   </div>
+                   <a href="#" class="mt-[1rem] block text-center px-[2rem] py-[1rem] bg-main text-white rounded-[.5rem] hover:bg-dark">view playlists</a>
+                </div>
+                <div class="bg-gray-100 dark:bg-[#555] p-[2rem] rounded-[.5rem] shadow">
+                   <div class="flex items-center space-x-[1.5rem]">
+                      <i class="fas fa-heart text-red text-[2.5rem]"></i>
+                      <div>
+                         <span class="text-[2rem] font-bold text-dark dark:text-white">33</span>
+                         <p class="text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">videos liked</p>
+                      </div>
+                   </div>
+                   <a href="#" class="mt-[1rem] block text-center px-[2rem] py-[1rem] bg-red text-white rounded-[.5rem] hover:bg-dark">view liked</a>
+                </div>
+                <div class="bg-gray-100 dark:bg-[#555] p-[2rem] rounded-[.5rem] shadow">
+                   <div class="flex items-center space-x-[1.5rem]">
+                      <i class="fas fa-comment text-orange text-[2.5rem]"></i>
+                      <div>
+                         <span class="text-[2rem] font-bold text-dark dark:text-white">12</span>
+                         <p class="text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">videos comments</p>
+                      </div>
+                   </div>
+                   <a href="#" class="mt-[1rem] block text-center px-[2rem] py-[1rem] bg-orange text-white rounded-[.5rem] hover:bg-dark">view comments</a>
+                </div>
+             </div>
+          </section>
+        </main>
+    </div>
+    
+    <!-- Updated Footer with centered content -->
+    <footer class="footer fixed   w-full flex justify-center  items-center text-[2rem] py-[2.5rem] px-[2rem] text-dark dark:text-white bg-white dark:bg-dark border-t border-[rgba(0,0,0,.2)] dark:border-[rgba(255,255,255,.2)]">
+      &copy; copyright @ 2022 by &nbsp; 
+      <span class="text-main"> mr. web designer</span>&nbsp;| all rights reserved!
+    </footer>
+    
+    <script src="js/script.js"></script>
 </body>
 </html>
