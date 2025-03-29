@@ -112,13 +112,15 @@
       body.active {
          padding-left: 0 !important;
       }
-      /* User profile popup styles */
+      /* Updated User profile popup styles */
       .header .flex .profile {
-         transition: transform 0.3s ease;
-         transform: scale(0);
+         transition: opacity 0.3s ease;
+         opacity: 0;
+         pointer-events: none;
       }
       .header .flex .profile.active {
-         transform: scale(1);
+         opacity: 1;
+         pointer-events: auto;
       }
       /* Add rules to remove left margin when body.active is applied (sidebar hidden) */
       body.active #pageHeader,
@@ -148,7 +150,7 @@
          <div id="toggle-btn" class="fas fa-sun p-4 text-2xl text-dark dark:text-white bg-light-bg dark:bg-[#555] rounded-md cursor-pointer hover:bg-dark hover:text-white"></div>
       </div>
 
-      <div class="profile hidden absolute top-full right-8 bg-white dark:bg-dark rounded-md p-4 w-80 origin-top-right scale-0 transition-transform duration-200">
+      <div class="profile absolute top-full right-8 bg-white dark:bg-dark rounded-md p-4 w-80 origin-top-right">
          <img src="images/pic-1.jpg" alt="" class="h-24 w-24 rounded-full object-contain mb-4">
          <h3 class="text-2xl text-dark dark:text-white truncate">shaikh anas</h3>
          <p class="text-lg text-light dark:text-[rgba(200,200,200,1)]">student</p>
@@ -289,7 +291,6 @@
       </footer>
   </div>
   
-  <script src="js/script.js"></script>  
-  
+  <script src="js/script.js"></script>    
 </body>
 </html>
