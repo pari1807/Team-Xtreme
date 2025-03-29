@@ -6,258 +6,399 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>home</title>
 
-   <!-- font awesome cdn link  -->
+   <!-- Font Awesome CDN -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
 
-   <!-- custom css file link  -->
-   <link rel="stylesheet" href="css/style.css">
-
+   <!-- Tailwind CSS CDN -->
+   <script src="https://cdn.tailwindcss.com"></script>
+   <script>
+      tailwind.config = {
+         darkMode: 'class',
+         theme: {
+            extend: {
+               colors: {
+                  'main': '#8e44ad',
+                  'red': '#e74c3c',
+                  'orange': '#f39c12',
+                  'light': '#888',
+                  'light-bg': '#eee',
+                  'dark': '#2c3e50',
+                  'white': '#fff',
+               },
+               fontFamily: {
+                  'nunito': ['Nunito', 'sans-serif'],
+               },
+            }
+         }
+      }
+   </script>
+   <!-- Internal styles for things not covered by Tailwind utilities -->
+   <style>
+      html {
+         font-size: 62.5%;
+         overflow-x: hidden;
+      }
+      body { font-size: 1.6rem; }
+      *::selection { background-color: #8e44ad; color:#fff; }
+      html::-webkit-scrollbar { width: 1rem; height: .5rem; }
+      html::-webkit-scrollbar-track { background-color: transparent; }
+      html::-webkit-scrollbar-thumb { background-color: #8e44ad; }
+      body.dark {
+         --tw-bg-opacity: 1;
+         background-color: rgba(51,51,51,var(--tw-bg-opacity));
+         --tw-text-opacity: 1;
+         color: rgba(170,170,170,var(--tw-text-opacity));
+      }
+      .side-bar .navbar a:hover i { margin-right: 2.5rem; }
+      .comments .box-container .box .comment-box::before {
+         content: '';
+         position: absolute;
+         top: -1rem; left: 1.5rem;
+         background-color: #eee;
+         height: 1.2rem;
+         width: 2rem;
+         clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      }
+      @media (max-width:1200px) {
+         .side-bar.active { box-shadow: 0 0 0 100vw rgba(0,0,0,.8); }
+      }
+      @media (max-width:768px) {
+         .header .flex .search-form {
+            clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+         }
+         .header .flex .search-form.active {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+         }
+      }
+      @media (max-width:450px) {
+         .about .row .image img { height: 25rem; }
+      }
+      .side-bar {
+         position: fixed;
+         top: 0;
+         left: -30rem;
+         width: 30rem;
+         background-color: var(--white);
+         height: 100vh;
+         border-right: var(--border);
+         z-index: 1200;
+         transition: left 0.3s ease;
+      }
+      .side-bar.active { left: 0 !important; }
+      body.active { padding-left: 0 !important; }
+      body.active .content {
+         margin-left: 0 !important;
+         transition: margin-left 0.3s ease;
+      }
+      .header .flex .profile {
+         transition: transform 0.3s ease;
+         transform: scale(0);
+      }
+      .header .flex .profile.active { transform: scale(1); }
+      /* New margin rules for header and content */
+      header,
+      .content {
+         margin-left: 30rem;
+         transition: margin-left 0.3s ease;
+      }
+      body.active header,
+      body.active .content {
+         margin-left: 0 !important;
+      }
+   </style>
 </head>
-<body>
+<body class="font-nunito bg-light-bg text-[1.6rem] dark:bg-[#333] dark:text-[rgba(170,170,170,1)]">
 
-<header class="header">
-   
-   <section class="flex">
+<header class="header sticky top-0 right-0 bg-white dark:bg-dark z-[1000] border-b border-[rgba(0,0,0,.2)] dark:border-[rgba(255,255,255,.2)]">
+   <section class="flex items-center justify-between relative py-[1.5rem] px-[2rem]">
+      <a href="home.html" class="logo text-[2.5rem] text-dark dark:text-white">Educa.</a>
 
-      <a href="home.html" class="logo">Educa.</a>
-
-      <form action="search.html" method="post" class="search-form">
-         <input type="text" name="search_box" required placeholder="search courses..." maxlength="100">
-         <button type="submit" class="fas fa-search"></button>
+      <form action="search.html" method="post" class="search-form w-[50rem] rounded-[.5rem] bg-light-bg dark:bg-[#555] p-[1.5rem_2rem] flex gap-[2rem] hidden md:flex">
+         <input type="text" name="search_box" required placeholder="search courses..." maxlength="100" class="w-full text-[1.8rem] text-dark dark:text-white bg-transparent">
+         <button type="submit" class="fas fa-search text-[2rem] cursor-pointer text-dark dark:text-white hover:text-main"></button>
       </form>
 
-      <div class="icons">
-         <div id="menu-btn" class="fas fa-bars"></div>
-         <div id="search-btn" class="fas fa-search"></div>
-         <div id="user-btn" class="fas fa-user"></div>
-         <div id="toggle-btn" class="fas fa-sun"></div>
+      <div class="icons flex space-x-[0.7rem]">
+         <div id="menu-btn" class="fas fa-bars text-[2rem] text-dark dark:text-white bg-light-bg dark:bg-[#555] rounded-[.5rem] h-[4.5rem] w-[4.5rem] leading-[4.5rem] cursor-pointer text-center hover:bg-dark hover:text-white"></div>
+         <div id="search-btn" class="fas fa-search text-[2rem] text-dark dark:text-white bg-light-bg dark:bg-[#555] rounded-[.5rem] h-[4.5rem] w-[4.5rem] leading-[4.5rem] cursor-pointer text-center md:hidden hover:bg-dark hover:text-white"></div>
+         <div id="user-btn" class="fas fa-user text-[2rem] text-dark dark:text-white bg-light-bg dark:bg-[#555] rounded-[.5rem] h-[4.5rem] w-[4.5rem] leading-[4.5rem] cursor-pointer text-center hover:bg-dark hover:text-white"></div>
+         <div id="toggle-btn" class="fas fa-sun text-[2rem] text-dark dark:text-white bg-light-bg dark:bg-[#555] rounded-[.5rem] h-[4.5rem] w-[4.5rem] leading-[4.5rem] cursor-pointer text-center hover:bg-dark hover:text-white"></div>
       </div>
 
-      <div class="profile">
-         <img src="images/pic-1.jpg" class="image" alt="">
-         <h3 class="name">shaikh anas</h3>
-         <p class="role">studen</p>
-         <a href="profile.html" class="btn">view profile</a>
-         <div class="flex-btn">
-            <a href="login.html" class="option-btn">login</a>
-            <a href="register.html" class="option-btn">register</a>
+      <div class="profile absolute top-[120%] right-[2rem] bg-white dark:bg-dark rounded-[.5rem] p-[1.5rem] text-center overflow-hidden origin-top-right scale-0 transition-[.2s_linear] w-[30rem]">
+         <img src="images/pic-1.jpg" class="image h-[10rem] w-[10rem] rounded-full object-contain mb-[1rem]" alt="">
+         <h3 class="name text-[2rem] text-dark dark:text-white overflow-hidden text-ellipsis whitespace-nowrap">shaikh anas</h3>
+         <p class="role text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">student</p>
+         <a href="profile.html" class="btn inline-block rounded-[.5rem] bg-main text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center mt-[1rem] hover:bg-dark">view profile</a>
+         <div class="flex-btn flex gap-[1rem] mt-[1rem]">
+            <a href="login.html" class="option-btn inline-block rounded-[.5rem] bg-orange text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center hover:bg-dark">login</a>
+            <a href="register.html" class="option-btn inline-block rounded-[.5rem] bg-orange text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center hover:bg-dark">register</a>
          </div>
       </div>
-
    </section>
-
 </header>   
 
-<div class="side-bar">
-
-   <div id="close-btn">
-      <i class="fas fa-times"></i>
+<div class="side-bar active fixed top-0 bg-white dark:bg-dark h-[100vh] border-r border-[rgba(0,0,0,.2)] dark:border-[rgba(255,255,255,.2)] z-[1200] transition-all duration-300 ease-in-out">
+   <!-- Added close button -->
+   <div id="close-btn" class="text-right p-[2rem] hidden">
+      <i class="fas fa-times text-[2.5rem] bg-red rounded-[.5rem] text-white cursor-pointer h-[4.5rem] w-[4.5rem] leading-[4.5rem] text-center hover:bg-dark"></i>
    </div>
-
-   <div class="profile">
-      <img src="images/pic-1.jpg" class="image" alt="">
-      <h3 class="name">shaikh anas</h3>
-      <p class="role">studen</p>
-      <a href="profile.html" class="btn">view profile</a>
+   <div class="profile p-[3rem_2rem] text-center">
+      <div class="flex justify-center items-center">
+         <img src="images/pic-1.jpg" class="image h-[10rem] w-[10rem] rounded-[50%] object-contain mb-[1rem]" alt="">
+      </div>
+      <h3 class="name text-[2rem] text-dark dark:text-white overflow-hidden text-ellipsis whitespace-nowrap">shaikh anas</h3>
+      <p class="role text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">student</p>
+      <a href="profile.html" class="btn inline-block rounded-[.5rem] bg-main text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center mt-[1rem] hover:bg-dark hover:text-white">view profile</a>
    </div>
-
    <nav class="navbar">
-      <a href="home.html"><i class="fas fa-home"></i><span>home</span></a>
-      <a href="about.html"><i class="fas fa-question"></i><span>about</span></a>
-      <a href="courses.html"><i class="fas fa-graduation-cap"></i><span>courses</span></a>
-      <a href="teachers.html"><i class="fas fa-chalkboard-user"></i><span>teachers</span></a>
-      <a href="contact.html"><i class="fas fa-headset"></i><span>contact us</span></a>
+      <a href="home.html" class="block p-[2rem] text-[2rem] hover:bg-light-bg dark:hover:bg-[#444]">
+         <i class="fas fa-home mr-[1.5rem] text-main transition-[.2s_linear]"></i>
+         <span class="text-light dark:text-[rgba(220,220,220,1)]">home</span>
+      </a>
+      <a href="about.html" class="block p-[2rem] text-[2rem] hover:bg-light-bg dark:hover:bg-[#444]">
+         <i class="fas fa-question mr-[1.5rem] text-main transition-[.2s_linear]"></i>
+         <span class="text-light dark:text-[rgba(220,220,220,1)]">about</span>
+      </a>
+      <a href="courses.html" class="block p-[2rem] text-[2rem] hover:bg-light-bg dark:hover:bg-[#444]">
+         <i class="fas fa-graduation-cap mr-[1.5rem] text-main transition-[.2s_linear]"></i>
+         <span class="text-light dark:text-[rgba(220,220,220,1)]">courses</span>
+      </a>
+      <a href="teachers.html" class="block p-[2rem] text-[2rem] hover:bg-light-bg dark:hover:bg-[#444]">
+         <i class="fas fa-chalkboard-user mr-[1.5rem] text-main transition-[.2s_linear]"></i>
+         <span class="text-light dark:text-[rgba(220,220,220,1)]">teachers</span>
+      </a>
+      <a href="contact.html" class="block p-[2rem] text-[2rem] hover:bg-light-bg dark:hover:bg-[#444]">
+         <i class="fas fa-headset mr-[1.5rem] text-main transition-[.2s_linear]"></i>
+         <span class="text-light dark:text-[rgba(220,220,220,1)]">contact us</span>
+      </a>
    </nav>
-
 </div>
 
-<section class="home-grid">
-
-   <h1 class="heading">quick options</h1>
-
-   <div class="box-container">
-
-      <div class="box">
-         <h3 class="title">likes and comments</h3>
-         <p class="likes">total likes : <span>25</span></p>
-         <a href="#" class="inline-btn">view likes</a>
-         <p class="likes">total comments : <span>12</span></p>
-         <a href="#" class="inline-btn">view comments</a>
-         <p class="likes">saved playlists : <span>4</span></p>
-         <a href="#" class="inline-btn">view playlists</a>
-      </div>
-
-      <div class="box">
-         <h3 class="title">top categories</h3>
-         <div class="flex">
-            <a href="#"><i class="fas fa-code"></i><span>development</span></a>
-            <a href="#"><i class="fas fa-chart-simple"></i><span>business</span></a>
-            <a href="#"><i class="fas fa-pen"></i><span>design</span></a>
-            <a href="#"><i class="fas fa-chart-line"></i><span>marketing</span></a>
-            <a href="#"><i class="fas fa-music"></i><span>music</span></a>
-            <a href="#"><i class="fas fa-camera"></i><span>photography</span></a>
-            <a href="#"><i class="fas fa-cog"></i><span>software</span></a>
-            <a href="#"><i class="fas fa-vial"></i><span>science</span></a>
+<div class="content">
+   <section class="home-grid p-[2rem] max-w-[1200px] mx-auto">
+      <h1 class="heading text-[2.5rem] text-dark dark:text-white mb-[2.5rem] border-b border-[rgba(0,0,0,.2)] dark:border-[rgba(255,255,255,.2)] pb-[1.5rem] capitalize">quick options</h1>
+      <div class="box-container grid grid-cols-[repeat(auto-fit,minmax(27rem,1fr))] gap-[1.5rem] justify-center items-start">
+         <div class="box p-[2rem] bg-white dark:bg-dark rounded-[.5rem] shadow-md">
+            <h3 class="title text-[2rem] text-dark dark:text-white mb-[1rem]">likes and comments</h3>
+            <p class="likes text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">
+               total likes : 
+               <span class="text-main transition duration-300 hover:underline hover:text-red-500">25</span>
+            </p>
+            <a href="#" class="inline-btn inline-block rounded-[.5rem] bg-main text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center mt-[1rem] hover:bg-dark hover:text-white">view likes</a>
+            <p class="likes text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">
+               total comments : 
+               <span class="text-main transition duration-300 hover:underline hover:text-red-500">12</span>
+            </p>
+            <a href="#" class="inline-btn inline-block rounded-[.5rem] bg-main text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center mt-[1rem] hover:bg-dark hover:text-white">view comments</a>
+            <p class="likes text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">
+               saved playlists : 
+               <span class="text-main transition duration-300 hover:underline hover:text-red-500">4</span>
+            </p>
+            <a href="#" class="inline-btn inline-block rounded-[.5rem] bg-main text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center mt-[1rem] hover:bg-dark hover:text-white">view playlists</a>
          </div>
-      </div>
 
-      <div class="box">
-         <h3 class="title">popular topics</h3>
-         <div class="flex">
-            <a href="#"><i class="fab fa-html5"></i><span>HTML</span></a>
-            <a href="#"><i class="fab fa-css3"></i><span>CSS</span></a>
-            <a href="#"><i class="fab fa-js"></i><span>javascript</span></a>
-            <a href="#"><i class="fab fa-react"></i><span>react</span></a>
-            <a href="#"><i class="fab fa-php"></i><span>PHP</span></a>
-            <a href="#"><i class="fab fa-bootstrap"></i><span>bootstrap</span></a>
-         </div>
-      </div>
-
-      <div class="box">
-         <h3 class="title">become a tutor</h3>
-         <p class="tutor">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis, nam?</p>
-         <a href="teachers.html" class="inline-btn">get started</a>
-      </div>
-
-   </div>
-
-</section>
-
-
-
-<section class="courses">
-
-   <h1 class="heading">our courses</h1>
-
-   <div class="box-container">
-
-      <div class="box">
-         <div class="tutor">
-            <img src="images/pic-2.jpg" alt="">
-            <div class="info">
-               <h3>john deo</h3>
-               <span>21-10-2022</span>
+         <div class="box p-[2rem] bg-white dark:bg-dark rounded-[.5rem] shadow-md">
+            <h3 class="title text-[2rem] text-dark dark:text-white mb-[1rem]">top categories</h3>
+            <div class="flex flex-wrap gap-[1rem]">
+               <a href="#" class="flex items-center gap-[1rem] text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">
+                  <i class="fas fa-code"></i>
+                  <span class="transition duration-300 hover:underline hover:text-red-500">development</span>
+               </a>
+               <a href="#" class="flex items-center gap-[1rem] text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">
+                  <i class="fas fa-chart-simple"></i>
+                  <span class="transition duration-300 hover:underline hover:text-red-500">business</span>
+               </a>
+               <a href="#" class="flex items-center gap-[1rem] text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">
+                  <i class="fas fa-pen"></i>
+                  <span class="transition duration-300 hover:underline hover:text-red-500">design</span>
+               </a>
+               <a href="#" class="flex items-center gap-[1rem] text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">
+                  <i class="fas fa-chart-line"></i>
+                  <span class="transition duration-300 hover:underline hover:text-red-500">marketing</span>
+               </a>
+               <a href="#" class="flex items-center gap-[1rem] text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">
+                  <i class="fas fa-music"></i>
+                  <span class="transition duration-300 hover:underline hover:text-red-500">music</span>
+               </a>
+               <a href="#" class="flex items-center gap-[1rem] text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">
+                  <i class="fas fa-camera"></i>
+                  <span class="transition duration-300 hover:underline hover:text-red-500">photography</span>
+               </a>
+               <a href="#" class="flex items-center gap-[1rem] text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">
+                  <i class="fas fa-cog"></i>
+                  <span class="transition duration-300 hover:underline hover:text-red-500">software</span>
+               </a>
+               <a href="#" class="flex items-center gap-[1rem] text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">
+                  <i class="fas fa-vial"></i>
+                  <span class="transition duration-300 hover:underline hover:text-red-500">science</span>
+               </a>
             </div>
          </div>
-         <div class="thumb">
-            <img src="images/thumb-1.png" alt="">
-            <span>10 videos</span>
-         </div>
-         <h3 class="title">complete HTML tutorial</h3>
-         <a href="playlist.html" class="inline-btn">view playlist</a>
-      </div>
 
-      <div class="box">
-         <div class="tutor">
-            <img src="images/pic-3.jpg" alt="">
-            <div class="info">
-               <h3>john deo</h3>
-               <span>21-10-2022</span>
+         <div class="box p-[2rem] bg-white dark:bg-dark rounded-[.5rem] shadow-md">
+            <h3 class="title text-[2rem] text-dark dark:text-white mb-[1rem]">popular topics</h3>
+            <div class="flex flex-wrap gap-[1rem]">
+               <a href="#" class="flex items-center gap-[1rem] text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">
+                  <i class="fab fa-html5"></i>
+                  <span class="transition duration-300 hover:underline hover:text-red-500">HTML</span>
+               </a>
+               <a href="#" class="flex items-center gap-[1rem] text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">
+                  <i class="fab fa-css3"></i>
+                  <span class="transition duration-300 hover:underline hover:text-red-500">CSS</span>
+               </a>
+               <a href="#" class="flex items-center gap-[1rem] text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">
+                  <i class="fab fa-js"></i>
+                  <span class="transition duration-300 hover:underline hover:text-red-500">javascript</span>
+               </a>
+               <a href="#" class="flex items-center gap-[1rem] text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">
+                  <i class="fab fa-react"></i>
+                  <span class="transition duration-300 hover:underline hover:text-red-500">react</span>
+               </a>
+               <a href="#" class="flex items-center gap-[1rem] text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">
+                  <i class="fab fa-php"></i>
+                  <span class="transition duration-300 hover:underline hover:text-red-500">PHP</span>
+               </a>
+               <a href="#" class="flex items-center gap-[1rem] text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">
+                  <i class="fab fa-bootstrap"></i>
+                  <span class="transition duration-300 hover:underline hover:text-red-500">bootstrap</span>
+               </a>
             </div>
          </div>
-         <div class="thumb">
-            <img src="images/thumb-2.png" alt="">
-            <span>10 videos</span>
-         </div>
-         <h3 class="title">complete CSS tutorial</h3>
-         <a href="playlist.html" class="inline-btn">view playlist</a>
-      </div>
 
-      <div class="box">
-         <div class="tutor">
-            <img src="images/pic-4.jpg" alt="">
-            <div class="info">
-               <h3>john deo</h3>
-               <span>21-10-2022</span>
+         <div class="box p-[2rem] bg-white dark:bg-dark rounded-[.5rem] shadow-md">
+            <h3 class="title text-[2rem] text-dark dark:text-white mb-[1rem]">become a tutor</h3>
+            <p class="tutor text-[1.8rem] text-light dark:text-[rgba(200,200,200,1)]">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis, nam?</p>
+            <a href="teachers.html" class="inline-btn inline-block rounded-[.5rem] bg-main text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center mt-[1rem] hover:bg-dark hover:text-white">get started</a>
+         </div>
+      </div>
+   </section>
+
+   <section class="courses p-[2rem] max-w-[1200px] mx-auto">
+      <h1 class="heading text-[2.5rem] text-dark dark:text-white mb-[2.5rem] border-b border-[rgba(0,0,0,.2)] dark:border-[rgba(255,255,255,.2)] pb-[1.5rem] capitalize">our courses</h1>
+      <div class="box-container grid grid-cols-[repeat(auto-fit,minmax(27rem,1fr))] gap-[1.5rem] justify-center items-start">
+         <div class="box p-[2rem] bg-white dark:bg-dark rounded-[.5rem] shadow-md">
+            <div class="tutor flex items-center gap-[1rem] mb-[1rem]">
+               <img src="images/pic-2.jpg" alt="" class="h-[5rem] w-[5rem] rounded-full object-cover">
+               <div class="info">
+                  <h3 class="text-[2rem] text-dark dark:text-white">john deo</h3>
+                  <span class="text-[1.6rem] text-light dark:text-[rgba(200,200,200,1)]">21-10-2022</span>
+               </div>
             </div>
-         </div>
-         <div class="thumb">
-            <img src="images/thumb-3.png" alt="">
-            <span>10 videos</span>
-         </div>
-         <h3 class="title">complete JS tutorial</h3>
-         <a href="playlist.html" class="inline-btn">view playlist</a>
-      </div>
-
-      <div class="box">
-         <div class="tutor">
-            <img src="images/pic-5.jpg" alt="">
-            <div class="info">
-               <h3>john deo</h3>
-               <span>21-10-2022</span>
+            <div class="thumb relative mb-[1rem]">
+               <img src="images/thumb-1.png" alt="" class="w-full rounded-[.5rem]">
+               <span class="absolute top-[1rem] left-[1rem] bg-gray-800 text-white text-[1.2rem] py-[0.3rem] px-[0.7rem] rounded-[.5rem]">10 videos</span>
             </div>
+            <h3 class="title text-[2rem] text-dark dark:text-white mb-[1rem]">complete HTML tutorial</h3>
+            <a href="playlist.html" class="inline-btn inline-block rounded-[.5rem] bg-main text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center mt-[1rem] hover:bg-dark hover:text-white">
+               view playlist
+            </a>
          </div>
-         <div class="thumb">
-            <img src="images/thumb-4.png" alt="">
-            <span>10 videos</span>
-         </div>
-         <h3 class="title">complete Boostrap tutorial</h3>
-         <a href="playlist.html" class="inline-btn">view playlist</a>
-      </div>
 
-      <div class="box">
-         <div class="tutor">
-            <img src="images/pic-6.jpg" alt="">
-            <div class="info">
-               <h3>john deo</h3>
-               <span>21-10-2022</span>
+         <div class="box p-[2rem] bg-white dark:bg-dark rounded-[.5rem] shadow-md">
+            <div class="tutor flex items-center gap-[1rem] mb-[1rem]">
+               <img src="images/pic-3.jpg" alt="" class="h-[5rem] w-[5rem] rounded-full object-cover">
+               <div class="info">
+                  <h3 class="text-[2rem] text-dark dark:text-white">john deo</h3>
+                  <span class="text-[1.6rem] text-light dark:text-[rgba(200,200,200,1)]">21-10-2022</span>
+               </div>
             </div>
-         </div>
-         <div class="thumb">
-            <img src="images/thumb-5.png" alt="">
-            <span>10 videos</span>
-         </div>
-         <h3 class="title">complete JQuery tutorial</h3>
-         <a href="playlist.html" class="inline-btn">view playlist</a>
-      </div>
-
-      <div class="box">
-         <div class="tutor">
-            <img src="images/pic-7.jpg" alt="">
-            <div class="info">
-               <h3>john deo</h3>
-               <span>21-10-2022</span>
+            <div class="thumb relative mb-[1rem]">
+               <img src="images/thumb-2.png" alt="" class="w-full rounded-[.5rem]">
+               <span class="absolute top-[1rem] left-[1rem] bg-gray-800 text-white text-[1.2rem] py-[0.3rem] px-[0.7rem] rounded-[.5rem]">10 videos</span>
             </div>
+            <h3 class="title text-[2rem] text-dark dark:text-white mb-[1rem]">complete CSS tutorial</h3>
+            <a href="playlist.html" class="inline-btn inline-block rounded-[.5rem] bg-main text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center mt-[1rem] hover:bg-dark hover:text-white">
+               view playlist
+            </a>
          </div>
-         <div class="thumb">
-            <img src="images/thumb-6.png" alt="">
-            <span>10 videos</span>
+
+         <div class="box p-[2rem] bg-white dark:bg-dark rounded-[.5rem] shadow-md">
+            <div class="tutor flex items-center gap-[1rem] mb-[1rem]">
+               <img src="images/pic-4.jpg" alt="" class="h-[5rem] w-[5rem] rounded-full object-cover">
+               <div class="info">
+                  <h3 class="text-[2rem] text-dark dark:text-white">john deo</h3>
+                  <span class="text-[1.6rem] text-light dark:text-[rgba(200,200,200,1)]">21-10-2022</span>
+               </div>
+            </div>
+            <div class="thumb relative mb-[1rem]">
+               <img src="images/thumb-3.png" alt="" class="w-full rounded-[.5rem]">
+               <span class="absolute top-[1rem] left-[1rem] bg-gray-800 text-white text-[1.2rem] py-[0.3rem] px-[0.7rem] rounded-[.5rem]">10 videos</span>
+            </div>
+            <h3 class="title text-[2rem] text-dark dark:text-white mb-[1rem]">complete JS tutorial</h3>
+            <a href="playlist.html" class="inline-btn inline-block rounded-[.5rem] bg-main text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center mt-[1rem] hover:bg-dark hover:text-white">
+               view playlist
+            </a>
          </div>
-         <h3 class="title">complete SASS tutorial</h3>
-         <a href="playlist.html" class="inline-btn">view playlist</a>
+
+         <div class="box p-[2rem] bg-white dark:bg-dark rounded-[.5rem] shadow-md">
+            <div class="tutor flex items-center gap-[1rem] mb-[1rem]">
+               <img src="images/pic-5.jpg" alt="" class="h-[5rem] w-[5rem] rounded-full object-cover">
+               <div class="info">
+                  <h3 class="text-[2rem] text-dark dark:text-white">john deo</h3>
+                  <span class="text-[1.6rem] text-light dark:text-[rgba(200,200,200,1)]">21-10-2022</span>
+               </div>
+            </div>
+            <div class="thumb relative mb-[1rem]">
+               <img src="images/thumb-4.png" alt="" class="w-full rounded-[.5rem]">
+               <span class="absolute top-[1rem] left-[1rem] bg-gray-800 text-white text-[1.2rem] py-[0.3rem] px-[0.7rem] rounded-[.5rem]">10 videos</span>
+            </div>
+            <h3 class="title text-[2rem] text-dark dark:text-white mb-[1rem]">complete Boostrap tutorial</h3>
+            <a href="playlist.html" class="inline-btn inline-block rounded-[.5rem] bg-main text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center mt-[1rem] hover:bg-dark hover:text-white">
+               view playlist
+            </a>
+         </div>
+
+         <div class="box p-[2rem] bg-white dark:bg-dark rounded-[.5rem] shadow-md">
+            <div class="tutor flex items-center gap-[1rem] mb-[1rem]">
+               <img src="images/pic-6.jpg" alt="" class="h-[5rem] w-[5rem] rounded-full object-cover">
+               <div class="info">
+                  <h3 class="text-[2rem] text-dark dark:text-white">john deo</h3>
+                  <span class="text-[1.6rem] text-light dark:text-[rgba(200,200,200,1)]">21-10-2022</span>
+               </div>
+            </div>
+            <div class="thumb relative mb-[1rem]">
+               <img src="images/thumb-5.png" alt="" class="w-full rounded-[.5rem]">
+               <span class="absolute top-[1rem] left-[1rem] bg-gray-800 text-white text-[1.2rem] py-[0.3rem] px-[0.7rem] rounded-[.5rem]">10 videos</span>
+            </div>
+            <h3 class="title text-[2rem] text-dark dark:text-white mb-[1rem]">complete JQuery tutorial</h3>
+            <a href="playlist.html" class="inline-btn inline-block rounded-[.5rem] bg-main text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center mt-[1rem] hover:bg-dark hover:text-white">
+               view playlist
+            </a>
+         </div>
+
+         <div class="box p-[2rem] bg-white dark:bg-dark rounded-[.5rem] shadow-md">
+            <div class="tutor flex items-center gap-[1rem] mb-[1rem]">
+               <img src="images/pic-7.jpg" alt="" class="h-[5rem] w-[5rem] rounded-full object-cover">
+               <div class="info">
+                  <h3 class="text-[2rem] text-dark dark:text-white">john deo</h3>
+                  <span class="text-[1.6rem] text-light dark:text-[rgba(200,200,200,1)]">21-10-2022</span>
+               </div>
+            </div>
+            <div class="thumb relative mb-[1rem]">
+               <img src="images/thumb-6.png" alt="" class="w-full rounded-[.5rem]">
+               <span class="absolute top-[1rem] left-[1rem] bg-gray-800 text-white text-[1.2rem] py-[0.3rem] px-[0.7rem] rounded-[.5rem]">10 videos</span>
+            </div>
+            <h3 class="title text-[2rem] text-dark dark:text-white mb-[1rem]">complete SASS tutorial</h3>
+            <a href="playlist.html" class="inline-btn inline-block rounded-[.5rem] bg-main text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center mt-[1rem] hover:bg-dark hover:text-white">
+               view playlist
+            </a>
+         </div>
       </div>
 
-   </div>
+      <div class="more-btn text-center mt-[2rem]">
+         <a href="courses.html" class="inline-option-btn inline-block rounded-[.5rem] bg-orange text-white text-[1.8rem] cursor-pointer capitalize py-[1rem] px-[3rem] text-center">
+            view all courses
+         </a>
+      </div>
+   </section>
 
-   <div class="more-btn">
-      <a href="courses.html" class="inline-option-btn">view all courses</a>
-   </div>
+   <footer class="footer sticky bottom-0 left-0 right-0 text-center text-[2rem] py-[2.5rem] px-[2rem] text-dark dark:text-white bg-white dark:bg-dark border-t border-[rgba(0,0,0,.2)] dark:border-[rgba(255,255,255,.2)] z-[1000] mt-[1rem]">
+      &copy; copyright @ 2022 by <span class="text-main">mr. web designer</span> | all rights reserved!
+   </footer>
+</div>
 
-</section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<footer class="footer">
-
-   &copy; copyright @ 2022 by <span>mr. web designer</span> | all rights reserved!
-
-</footer>
-
-<!-- custom js file link  -->
+<!-- Custom JS -->
 <script src="js/script.js"></script>
-
-   
 </body>
 </html>
